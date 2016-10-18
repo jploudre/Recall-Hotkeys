@@ -19,6 +19,29 @@ return
 
 #IfWinActive, Chart Desktop - ;###########################################################
 
+F1::
+; In Chart Desktop, Documents
+WinGetPos,,,winwidth,winheight,A
+ImageSearch, FoundX, FoundY, 0, 0, %winwidth%, %winheight%, %A_ScriptDir%/files/open.png
+if ( 80 < FoundY < 100) {
+; Search
+ImageSearch, ClickX, ClickY, 400, 140, %winwidth%, %winheight%, %A_ScriptDir%/files/blue.png
+Mouseclick, Right, %ClickX%, %ClickY%
+CitrixSleep()
+CitrixSleep()
+CitrixSleep()
+Send {Down 7} {Enter}
+WinWaitActive, Edit Document Properties
+CitrixSleep()
+Mouseclick, Left, 105, 249
+CitrixSleep()
+Send [ ] {Left 3}
+}
+return
+
+
+return
+
 #IfWinActive, Centricity Practice Solution Browser: ;###########################################################
 
 ; End of Window Specific Hotkeys.  #########################################
