@@ -17,12 +17,18 @@ return
 
 #IfWinActive, Chart - ;###########################################################
 
+;Registration
+#r::
+ImageClick("registration")
+return
+
 #IfWinActive, Chart Desktop - ;###########################################################
 
 F1::
 ; In Chart Desktop, Documents
 location := CheckLocation()
 if (location = "Chart-Desktop-Documents") {
+    WinGetPos,,,winwidth,winheight,A
     ImageSearch, ClickX, ClickY, 400, 140, %winwidth%, %winheight%, %A_ScriptDir%/files/blue.png
     Mouseclick, Right, %ClickX%, %ClickY%
     CitrixSleep()
@@ -65,5 +71,17 @@ if ( 80 < FoundY < 100) {
     ifWinActive, Chart Desktop -
     return "Chart-Desktop-Documents"
 }
+}
+return
+
+ImageClick(imagename, clicknumber:=1){
+    CoordMode, Pixel, Screen
+    CoordMode, Mouse, Screen
+    ImageSearch, FoundX, FoundY, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, %A_ScriptDir%/files/%imagename%.png
+    if (ErrorLevel = 0) {
+        MouseClick, Left, %FoundX%, %FoundX%, clicknumber
+    }
+    CoordMode, Pixel, Window
+    CoordMode, Mouse, Window
 }
 return
