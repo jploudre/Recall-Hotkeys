@@ -41,6 +41,14 @@ if (location = "Chart-Desktop-Documents") {
 }
 return
 
+#+s::
+Send ^j
+Citrixsleep()
+Send .rfu{space}
+Send !s
+SoundPlay, *64
+return
+
 #IfWinActive, New Recall - ;###########################################################
 
 LButton::
