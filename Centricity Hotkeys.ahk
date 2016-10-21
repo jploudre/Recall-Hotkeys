@@ -20,6 +20,7 @@ return
 
 #IfWinActive, Chart Desktop - ;###########################################################
 
+;3 months
 F1::
 ; In Chart Desktop, Documents
 location := CheckLocation()
@@ -36,7 +37,48 @@ if (location = "Chart-Desktop-Documents") {
     ; Focus on the Title Field
     Mouseclick, Left, 105, 249
     CitrixSleep()
-    Send [ ] {Left 3}
+    today = 
+    EnvAdd, today, 90, days
+    FormatTime, upcomingvisit, %today%, M-yyyy
+    FormatTime, upcomingdaynumber, today, d
+    if (upcomingdaynumber <15)
+        mailingofmonth := "1st"
+    else
+        mailingofmonth := "2nd"
+    Send [%upcomingvisit% - %mailingofmonth%]{Space}
+    CitrixSleep()
+    Send {Enter}
+    exit
+}
+return
+
+F3::
+; In Chart Desktop, Documents
+location := CheckLocation()
+if (location = "Chart-Desktop-Documents") {
+    WinGetPos,,,winwidth,winheight,A
+    ImageSearch, ClickX, ClickY, 400, 140, %winwidth%, %winheight%, %A_ScriptDir%/files/blue.png
+    Mouseclick, Right, %ClickX%, %ClickY%
+    CitrixSleep()
+    CitrixSleep()
+    CitrixSleep()
+    Send {Down 7} {Enter}
+    WinWaitActive, Edit Document Properties
+    CitrixSleep()
+    ; Focus on the Title Field
+    Mouseclick, Left, 105, 249
+    CitrixSleep()
+    today = 
+    EnvAdd, today, 180, days
+    FormatTime, upcomingvisit, %today%, M-yyyy
+    FormatTime, upcomingdaynumber, today, d
+    if (upcomingdaynumber <15)
+        mailingofmonth := "1st"
+    else
+        mailingofmonth := "2nd"
+    Send [%upcomingvisit% - %mailingofmonth%]{Space}
+    CitrixSleep()
+    Send {Enter}
     exit
 }
 return
