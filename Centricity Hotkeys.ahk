@@ -55,8 +55,9 @@ LButton::
 MouseGetPos, xpos, ypos
 if ( 217 < xpos AND xpos < 274 AND 357 < ypos AND ypos < 377)
     {
-    ; Click Sign, first
+    ; Click, then close windows.
     Mouseclick, Left, %xpos%, %ypos%
+    SoundPlay, *64
     Citrixsleep()
     Send !{F4}
     CitrixSleep()
