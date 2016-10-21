@@ -11,10 +11,6 @@ ExitScript:
 ExitApp
 return
 
-#IfWinActive, Update - ;###########################################################
-
-#IfWinActive, End Update ;###########################################################
-
 #IfWinActive, Chart - ;###########################################################
 
 ;Registration
@@ -43,16 +39,26 @@ if (location = "Chart-Desktop-Documents") {
     Send [ ] {Left 3}
     exit
 }
-
-
-
-
 return
 
+#IfWinActive, New Recall - ;###########################################################
 
+LButton::
+MouseGetPos, xpos, ypos
+if ( 217 < xpos AND xpos < 274 AND 357 < ypos AND ypos < 377)
+    {
+    ; Click Sign, first
+    Mouseclick, Left, %xpos%, %ypos%
+    Citrixsleep()
+    Send !{F4}
+    CitrixSleep()
+    Send !{F4}
+    }
+else
+    {
+    Click    
+    }
 return
-
-#IfWinActive, Centricity Practice Solution Browser: ;###########################################################
 
 ; End of Window Specific Hotkeys.  #########################################
 #IfWinActive
