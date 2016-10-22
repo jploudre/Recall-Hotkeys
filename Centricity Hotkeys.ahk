@@ -30,7 +30,6 @@ if (location = "Chart-Desktop-Documents") {
     Mouseclick, Right, %ClickX%, %ClickY%
     CitrixSleep()
     CitrixSleep()
-    CitrixSleep()
     Send {Down 7} {Enter}
     WinWaitActive, Edit Document Properties
     CitrixSleep()
@@ -59,7 +58,6 @@ if (location = "Chart-Desktop-Documents") {
     WinGetPos,,,winwidth,winheight,A
     ImageSearch, ClickX, ClickY, 400, 140, %winwidth%, %winheight%, %A_ScriptDir%/files/blue.png
     Mouseclick, Right, %ClickX%, %ClickY%
-    CitrixSleep()
     CitrixSleep()
     CitrixSleep()
     Send {Down 7} {Enter}
@@ -94,6 +92,10 @@ return
 ;Open Flag
 #o::
 imageclick("open-flag")
+WinWaitActive, View Alerts/Flags
+citrixsleep()
+citrixsleep()
+Send !{F4}
 return
 
 #IfWinActive, New Recall - ;###########################################################
@@ -133,32 +135,57 @@ if ( 373 < xpos AND xpos < 445 AND 310 < ypos AND ypos < 331)
     {
     ; Click, then close windows.
     Mouseclick, Left, %xpos%, %ypos%
-    CitrixSleep()
-    WinWaitActive, Chart -
-    citrixsleep()
-    imageclick("chart-desktop")
-    WinWaitActive, Chart Desktop -
-    citrixsleep()
-    citrixsleep()
-    citrixsleep()
-    imageclick("remove")
-    Citrixsleep()
-    Citrixsleep()
-    CitrixSleep()
-    imageclick("open-flag")
-    WinWaitActive, View Alerts/Flags
-    citrixsleep()
-    citrixsleep()
-    citrixsleep()
-    Send !{F4}
-    }
+    AfterRoutetoNextFlag()
+}
 else
     {
     Click right
     }
 return
 
+F1::
+RouteToDesktop("January")
+return
+F2::
+RouteToDesktop("February")
+return
+F3::
+RouteToDesktop("March")
+return
+F4::
+RouteToDesktop("April")
+return
+F5::
+RouteToDesktop("May")
+return
+F6::
+RouteToDesktop("June")
+return
+F7::
+RouteToDesktop("July")
+return
+F8::
+RouteToDesktop("August")
+return
+F9::
+RouteToDesktop("September")
+return
+F10::
+RouteToDesktop("October")
+return
+F11::
+RouteToDesktop("November")
+return
+F12::
+RouteToDesktop("December")
+return
 
+; For In Progress Note. Route to Recall Desktop, Delete Flag
+#r::
+RouteToDesktop("Recall")
+Send !r
+AfterRoutetoNextFlag()
+return
 
 ; End of Window Specific Hotkeys.  #########################################
 #IfWinActive
@@ -192,3 +219,30 @@ ImageClick(imagename){
     CoordMode, Mouse, Window
 }
 return
+
+AfterRoutetoNextFlag(){
+    WinWaitActive, Chart -
+    citrixsleep()
+    citrixsleep()
+    imageclick("chart-desktop")
+    WinWaitActive, Chart Desktop -
+    citrixsleep()
+    citrixsleep()
+    imageclick("remove")
+    Citrixsleep()
+    Citrixsleep()
+    imageclick("open-flag")
+    WinWaitActive, View Alerts/Flags
+    citrixsleep()
+    citrixsleep()
+    Send !{F4}
+}
+
+RouteToDesktop(desktopname){
+Send !n
+WinWaitActive, New Routing
+CitrixSleep()
+Send %desktopname% {enter}
+Click, 239 354
+WinWaitActive, Route Document
+}
