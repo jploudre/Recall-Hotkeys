@@ -21,7 +21,7 @@ return
 #IfWinActive, Chart Desktop - ;###########################################################
 
 ;3 months
-F1::
+F3::
 ; In Chart Desktop, Documents
 location := CheckLocation()
 if (location = "Chart-Desktop-Documents") {
@@ -52,7 +52,7 @@ if (location = "Chart-Desktop-Documents") {
 }
 return
 
-F3::
+F6::
 ; In Chart Desktop, Documents
 location := CheckLocation()
 if (location = "Chart-Desktop-Documents") {
