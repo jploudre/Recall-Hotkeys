@@ -7,21 +7,21 @@ Met with Sabra G., Alyda D. and Shannon L. (after introductions by Heather.)
 In Chart Desktop, Flags
 
 - Open Flag
+	- Close Flag
+	- Find Recall Text Manually (New Global Quicktext?)
 	- if still in progress
 		- Add to recall desktop
 		- Hold
 		- Remove Flag
 	- if signed
-		- Close Flag
-		- Find Recall text manually
 		- Route to Month (Absolute)
-		- If only 1 name attached, remove that name (else pause)
 		- When 'OK' right-click --> I'M DONE
-			- Click OK
-			- Go to Desktop
-			- Delete the flag
-			- Open Next
-			- Close Alert when you open
+		- If only 1 name attached, remove that name (else pause)
+		- Click OK
+		- Go to Desktop
+		- Delete the flag
+		- Open Next
+		- Close Alert when you open
 
 Possible: Relative dates (3m instead of 1/2017)
 
