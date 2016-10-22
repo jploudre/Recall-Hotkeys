@@ -117,7 +117,7 @@ return
 ; Miscellaneous Functions ##############################
 
 CitrixSleep(){
-Sleep, 150
+Sleep, 300
 }
 return
 
