@@ -13,9 +13,9 @@ return
 
 #IfWinActive, Chart - ;###########################################################
 
-;Registration
+;Route
 #r::
-ImageClick("registration")
+imageclick("route")
 return
 
 #IfWinActive, Chart Desktop - ;###########################################################
@@ -87,8 +87,13 @@ return
 Send ^j
 Citrixsleep()
 Send .rfu{space}
+Citrixsleep()
 Send !s
-SoundPlay, *64
+return
+
+;Open Flag
+#o::
+imageclick("open-flag")
 return
 
 #IfWinActive, New Recall - ;###########################################################
@@ -111,6 +116,50 @@ else
     }
 return
 
+#IfWinActive, Route Document - ;###########################################################
+
+RButton::
+MouseGetPos, xpos, ypos
+; remove routing
+if ( 28 < xpos AND xpos < 515 AND 168 < ypos AND ypos < 255)
+    {
+    ; Click, then close windows.
+    Mouseclick, Left, %xpos%, %ypos%
+    Citrixsleep()
+    Send !m
+    }
+; I'm Done
+if ( 373 < xpos AND xpos < 445 AND 310 < ypos AND ypos < 331)
+    {
+    ; Click, then close windows.
+    Mouseclick, Left, %xpos%, %ypos%
+    CitrixSleep()
+    WinWaitActive, Chart -
+    citrixsleep()
+    imageclick("chart-desktop")
+    WinWaitActive, Chart Desktop -
+    citrixsleep()
+    citrixsleep()
+    citrixsleep()
+    imageclick("remove")
+    Citrixsleep()
+    Citrixsleep()
+    CitrixSleep()
+    imageclick("open-flag")
+    WinWaitActive, View Alerts/Flags
+    citrixsleep()
+    citrixsleep()
+    citrixsleep()
+    Send !{F4}
+    }
+else
+    {
+    Click right
+    }
+return
+
+
+
 ; End of Window Specific Hotkeys.  #########################################
 #IfWinActive
 
@@ -131,12 +180,13 @@ if ( 80 < FoundY < 100) {
 }
 return
 
-ImageClick(imagename, clicknumber:=1){
+ImageClick(imagename){
     CoordMode, Pixel, Screen
     CoordMode, Mouse, Screen
-    ImageSearch, FoundX, FoundY, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, %A_ScriptDir%/files/%imagename%.png
+    ImagePathandName := A_ScriptDir . "\files\" . imagename . ".PNG"
+    ImageSearch, FoundX, FoundY, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *n10 %ImagePathandName%
     if (ErrorLevel = 0) {
-        MouseClick, Left, %FoundX%, %FoundX%, clicknumber
+        Click, %FoundX%, %FoundY%
     }
     CoordMode, Pixel, Window
     CoordMode, Mouse, Window
