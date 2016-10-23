@@ -142,6 +142,77 @@ Send !r
 AfterRoutetoNextFlag()
 return
 
+#IfWinActive, End Update - ;###########################################################
+
+RButton::
+MouseGetPos, xpos, ypos
+; remove routing name
+if ( 28 < xpos AND xpos < 515 AND 250 < ypos AND ypos < 331) { ; Routing Names area, right click
+    Mouseclick, Left, %xpos%, %ypos%
+    Citrixsleep()
+    Send !m
+}
+; I'm Done
+if ( 354 < xpos AND xpos < 444 AND 499 < ypos AND ypos < 520) { ; 'Route' button, right click
+    Mouseclick, Left, %xpos%, %ypos%
+    AfterRoutetoNextFlag()
+}
+else {
+    Click right
+}
+return
+
+F1::
+RouteToDesktop("January")
+return
+F2::
+RouteToDesktop("February")
+return
+F3::
+RouteToDesktop("March")
+return
+F4::
+RouteToDesktop("April")
+return
+F5::
+RouteToDesktop("May")
+return
+F6::
+RouteToDesktop("June")
+return
+F7::
+RouteToDesktop("July")
+return
+F8::
+RouteToDesktop("August")
+return
+F9::
+RouteToDesktop("September")
+return
+F10::
+RouteToDesktop("October")
+return
+F11::
+RouteToDesktop("November")
+return
+F12::
+RouteToDesktop("December")
+return
+
+#r::
+RouteToDesktop("Recall")
+CitrixSleep()
+CitrixSleep()
+Send !o
+AfterRoutetoNextFlag()
+return
+
+
+#IfWinActive, Update - ;###########################################################
+\::
+Send ^e
+return
+
 ; End of Window Specific Hotkeys.  #########################################
 #IfWinActive
 
