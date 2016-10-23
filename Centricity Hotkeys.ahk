@@ -243,6 +243,7 @@ CheckLocation(){
 		ifWinActive, Chart Desktop -
 		return "Chart-Desktop-Documents"
 	}
+    return
 }
 
 ImageClick(imagename){
@@ -266,6 +267,12 @@ ImageClick(imagename){
 }
 
 AfterRoutetoNextFlag(){
+    CitrixSleep()
+    IfWinActive, View Alerts/Flags
+        Send !{F4}
+    CitrixSleep()
+    IfWinActive, Care Alert Warning
+        Send !c
     WinWaitActive, Chart -
     citrixsleep()
     citrixsleep()
@@ -288,6 +295,7 @@ RouteToDesktop(desktopname){
 	WinWaitActive, New Routing
 	CitrixSleep()
 	Send %desktopname% {enter}
+    CitrixSleep()
 	Click, 239 354
 }
 
