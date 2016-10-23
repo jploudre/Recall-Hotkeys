@@ -75,6 +75,10 @@ if (ErrorLevel = 1) {
 }
 return
 
+#r::
+Imageclick("route-desktop")
+return
+
 #IfWinActive, New Recall - ;###########################################################
 
 RButton::
