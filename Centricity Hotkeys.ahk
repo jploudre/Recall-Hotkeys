@@ -244,23 +244,7 @@ Send !o
 AfterRoutetoNextFlag()
 return
 
-
-#IfWinActive, Update - ;###########################################################
-\::
-Send ^e
-return
-
 #IfWinActive, Patient Registration - ;###########################################################
-
-#e::
-Send !e
-citrixsleep()
-send !e
-WinWaitActive, Find Recall -, , 5
-if (ErrorLevel = 0) {
-    Send !n
-}
-return
 
 ; End of Window Specific Hotkeys.  #########################################
 #IfWinActive

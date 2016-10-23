@@ -13,7 +13,6 @@
 | Route Document           | Right Click a Name  | Removes Name                                  |
 | Route Document           | F1-F12              | Routes to January (F1) through December (F12) |
 | Route Document           | Win-R               | Route to Recall Desktop                       |
-| Update          | \               | End Update                       |
 | End Update           | Right Click 'Hold' | Like Route Document above                             |
 | End Update           | Right Click a Name  | Like Route Document above                                  |
 | End Update           | F1-F12              | Like Route Document above |
