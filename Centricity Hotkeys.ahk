@@ -239,10 +239,15 @@ ImageClick(imagename){
     ImageSearch, FoundX, FoundY, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *n10 %ImagePathandName%
     if (ErrorLevel = 0) {
         Click, %FoundX%, %FoundY%
+        CoordMode, Pixel, Window
+        CoordMode, Mouse, Window
+        return
     }
+    
     CoordMode, Pixel, Window
     CoordMode, Mouse, Window
-    if (ErrorLevel > 0) {
+    ; If image is not found, do not continue Hotkey that called. 
+    if (ErrorLevel = 1) {
     exit
     }
 }
