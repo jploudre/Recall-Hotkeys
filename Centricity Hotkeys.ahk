@@ -69,7 +69,7 @@ if ( 217 < xpos AND xpos < 274 AND 357 < ypos AND ypos < 377) { ; 'OK' button, r
     Send !{F4}
 }
 else {
-    Click    
+    Click right
 }
 return
 
