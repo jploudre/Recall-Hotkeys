@@ -6,11 +6,16 @@ SendMode Input
 RWin::return
 LWin::return
 Menu, Tray, NoStandard
+Menu, Tray, Add, Reload, ReloadMacro
 Menu, Tray, Add, Exit, ExitScript
 return
 
 ExitScript:
 ExitApp
+return
+
+ReloadMacro:
+Reload
 return
 
 #IfWinActive, Chart - ;###########################################################
