@@ -58,10 +58,21 @@ return
 ;Open Flag
 #o::
 imageclick("open-flag")
-WinWaitActive, View Alerts/Flags
-citrixsleep()
-citrixsleep()
-Send !{F4}
+WinWaitActive, View Alerts/Flags, ,3
+if (ErrorLevel = 0) {
+    Citrixsleep()
+    Citrixsleep()
+    Send !{F4}
+}
+if (ErrorLevel = 1) {
+    ImageClick("Chart")
+    WinWaitActive, View Alerts/Flags, ,3
+    if (ErrorLevel = 0) {
+        Citrixsleep()
+        Citrixsleep()
+        Send !{F4}
+    }    
+}
 return
 
 #IfWinActive, New Recall - ;###########################################################
