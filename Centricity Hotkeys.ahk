@@ -38,7 +38,6 @@ Loop, 30 {
 	ImageSearch, FoundX, FoundY, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, %A_ScriptDir%/files/appointments-selected.png
     if (ErrorLevel = 0) {
         ; Done
-        soundplay, *64
         break
     }
 }
