@@ -175,8 +175,6 @@ return
 ; For In Progress Note. Route to Recall Desktop, Delete Flag
 #r::
 RouteToDesktop("Recall")
-Send !r
-AfterRoutetoNextFlag()
 return
 
 #IfWinActive, End Update - ;###########################################################
@@ -238,10 +236,6 @@ return
 
 #r::
 RouteToDesktop("Recall")
-CitrixSleep()
-CitrixSleep()
-Send !o
-AfterRoutetoNextFlag()
 return
 
 #IfWinActive, Patient Registration - ;###########################################################
@@ -312,16 +306,9 @@ AfterRoutetoNextFlag(){
             if (ErrorLevel = 0) {
                 citrixsleep()
                 citrixsleep()
+                citrixsleep()
                 Send !{F4}
-            }
-            if (ErrorLevel = 1) {
-                ImageClick("chart")
-                WinWaitActive, View Alerts/Flags, ,3
-                if (ErrorLevel = 0) {
-                    Citrixsleep()
-                    Citrixsleep()
-                    Send !{F4}
-                }    
+                exit
             }
         }
     }
@@ -335,6 +322,7 @@ RouteToDesktop(desktopname){
         Send %desktopname% {enter}
         CitrixSleep()
         Click, 239 354
+        exit
     }
 }
 

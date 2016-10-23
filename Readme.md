@@ -3,6 +3,7 @@
 | In this spot:            | This Trigger:       | Does this:                                    |
 | ------------------------ | ------------------- | --------------------------------------------- |
 | Chart                    | Win-R               | Route Document                                |
+| Chart                    | Win-E               | Open Registration/Appointments                        |
 | Chart Desktop, Documents | F3                  | Renames 3 month                               |
 | Chart Desktop, Documents | F6                  | Renames 6 month                               |
 | Chart Desktop            | Win-S               | Signs (.rfu)                                  |
@@ -18,8 +19,8 @@
 | End Update           | F1-F12              | Like Route Document above |
 | End Update           | Win-R               | Recall Desktop, **back to Chart Desktop**                       |
 
+
 ---
 **Notes:**  
-
-? Modified 'Windows Key' behavior.  
+ 
 ? Use Post-its for learning.  
