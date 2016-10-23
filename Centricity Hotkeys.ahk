@@ -3,6 +3,8 @@ CoordMode, Mouse, Window
 #Persistent
 SetKeyDelay, 30
 SendMode Input
+RWin::return
+LWin::return
 Menu, Tray, NoStandard
 Menu, Tray, Add, Exit, ExitScript
 return
