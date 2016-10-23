@@ -23,6 +23,27 @@ return
 imageclick("route")
 return
 
+#e::
+imageclick("registration")
+Loop, 30 {
+    CitrixSleep()
+    IfWinActive, Warning -,
+    {
+        Send !{F4}
+    }
+    ImageSearch, FoundX, FoundY, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, %A_ScriptDir%/files/appointments.png
+    if (ErrorLevel = 0) {
+        imageclick("appointments")
+    }
+	ImageSearch, FoundX, FoundY, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, %A_ScriptDir%/files/appointments-selected.png
+    if (ErrorLevel = 0) {
+        ; Done
+        soundplay, *64
+        break
+    }
+}
+return
+
 #IfWinActive, Chart Desktop - ;###########################################################
 
 ;3 months Rename
@@ -296,11 +317,13 @@ AfterRoutetoNextFlag(){
 
 RouteToDesktop(desktopname){
 	Send !n
-	WinWaitActive, New Routing
-	CitrixSleep()
-	Send %desktopname% {enter}
-    CitrixSleep()
-	Click, 239 354
+	WinWaitActive, New Routing, , 5
+    if (ErrorLevel = 0) {
+        CitrixSleep()
+        Send %desktopname% {enter}
+        CitrixSleep()
+        Click, 239 354
+    }
 }
 
 ChangeDocumentTitle(numberofdays){
@@ -310,21 +333,23 @@ ChangeDocumentTitle(numberofdays){
     CitrixSleep()
     CitrixSleep()
     Send {Down 7} {Enter}
-    WinWaitActive, Edit Document Properties
-    CitrixSleep()
-    ; Focus on the Title Field
-    Mouseclick, Left, 105, 249
-    CitrixSleep()
-    today = 
-    EnvAdd, today, %numberofdays%, days
-    FormatTime, upcomingvisit, %today%, M-yyyy
-    FormatTime, upcomingdaynumber, today, d
-    if (upcomingdaynumber <15)
-        mailingofmonth := "1st"
-    else
-        mailingofmonth := "2nd"
-    Send [%upcomingvisit% - %mailingofmonth%]{Space}
-    CitrixSleep()
-    Send {Enter}
-    exit
+    WinWaitActive, Edit Document Properties, , 5
+    if (ErrorLevel = 0) {
+        CitrixSleep()
+        ; Focus on the Title Field
+        Mouseclick, Left, 105, 249
+        CitrixSleep()
+        today = 
+        EnvAdd, today, %numberofdays%, days
+        FormatTime, upcomingvisit, %today%, M-yyyy
+        FormatTime, upcomingdaynumber, today, d
+        if (upcomingdaynumber <15)
+            mailingofmonth := "1st"
+        else
+            mailingofmonth := "2nd"
+        Send [%upcomingvisit% - %mailingofmonth%]{Space}
+        CitrixSleep()
+        Send {Enter}
+        exit
+    }
 }
