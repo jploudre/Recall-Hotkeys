@@ -30,6 +30,7 @@ F3::
 location := CheckLocation()
 if (location = "Chart-Desktop-Documents") {
 	ChangeDocumentTitle(90)
+    return
 }
 return
 
@@ -38,6 +39,7 @@ F6::
 location := CheckLocation()
 if (location = "Chart-Desktop-Documents") {
 	ChangeDocumentTitle(180)
+    return
 }
 return
 
