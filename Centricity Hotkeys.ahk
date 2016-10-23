@@ -20,7 +20,7 @@ return
 
 #IfWinActive, Chart Desktop - ;###########################################################
 
-;3 months
+;3 months Rename
 F3::
 location := CheckLocation()
 if (location = "Chart-Desktop-Documents") {
@@ -28,7 +28,7 @@ if (location = "Chart-Desktop-Documents") {
 }
 return
 
-; 6 months
+; 6 months Rename
 F6::
 location := CheckLocation()
 if (location = "Chart-Desktop-Documents") {
@@ -36,67 +36,61 @@ if (location = "Chart-Desktop-Documents") {
 }
 return
 
+; Signs with .rfu quicktext
 #s::
-Send ^j
-Citrixsleep()
-Send .rfu{space}
-Citrixsleep()
-Send !s
+location := CheckLocation()
+if (location = "Chart-Desktop-Documents") {
+	Send ^j
+	Citrixsleep()
+	Send .rfu{space}
+	Citrixsleep()
+	Send !s
+}
 return
 
 ;Open Flag
 #o::
 imageclick("open-flag")
-WinWaitActive, View Alerts/Flags, , 5
-if (ErrorLevel = 0) {
+WinWaitActive, View Alerts/Flags
 citrixsleep()
 citrixsleep()
 Send !{F4}
-}
 return
 
 #IfWinActive, New Recall - ;###########################################################
 
 RButton::
 MouseGetPos, xpos, ypos
-if ( 217 < xpos AND xpos < 274 AND 357 < ypos AND ypos < 377)
-    {
-    ; Click, then close windows.
+if ( 217 < xpos AND xpos < 274 AND 357 < ypos AND ypos < 377) { ; 'OK' button, right click
     Mouseclick, Left, %xpos%, %ypos%
     Citrixsleep()
     Send !{F4}
     CitrixSleep()
     Send !{F4}
-    }
-else
-    {
+}
+else {
     Click    
-    }
+}
 return
 
 #IfWinActive, Route Document - ;###########################################################
 
 RButton::
 MouseGetPos, xpos, ypos
-; remove routing
-if ( 28 < xpos AND xpos < 515 AND 168 < ypos AND ypos < 255)
-    {
-    ; Click, then close windows.
+; remove routing name
+if ( 28 < xpos AND xpos < 515 AND 168 < ypos AND ypos < 255) { ; Routing Names area, right click
     Mouseclick, Left, %xpos%, %ypos%
     Citrixsleep()
     Send !m
-    }
+}
 ; I'm Done
-if ( 373 < xpos AND xpos < 445 AND 310 < ypos AND ypos < 331)
-    {
-    ; Click, then close windows.
+if ( 373 < xpos AND xpos < 445 AND 310 < ypos AND ypos < 331) { ; 'Route' button, right click
     Mouseclick, Left, %xpos%, %ypos%
     AfterRoutetoNextFlag()
 }
-else
-    {
+else {
     Click right
-    }
+}
 return
 
 F1::
@@ -154,14 +148,13 @@ Sleep, 300
 return
 
 CheckLocation(){
-WinGetPos,,,winwidth,winheight,A
-ImageSearch, FoundX, FoundY, 0, 0, %winwidth%, %winheight%, %A_ScriptDir%/files/open.png
-if ( 80 < FoundY < 100) {
-    ifWinActive, Chart Desktop -
-    return "Chart-Desktop-Documents"
+	WinGetPos,,,winwidth,winheight,A
+	ImageSearch, FoundX, FoundY, 0, 0, %winwidth%, %winheight%, %A_ScriptDir%/files/open.png
+	if ( 80 < FoundY < 100) {
+		ifWinActive, Chart Desktop -
+		return "Chart-Desktop-Documents"
+	}
 }
-}
-return
 
 ImageClick(imagename){
     CoordMode, Pixel, Screen
@@ -177,7 +170,6 @@ ImageClick(imagename){
     exit
     }
 }
-return
 
 AfterRoutetoNextFlag(){
     WinWaitActive, Chart -
@@ -198,11 +190,11 @@ AfterRoutetoNextFlag(){
 }
 
 RouteToDesktop(desktopname){
-Send !n
-WinWaitActive, New Routing
-CitrixSleep()
-Send %desktopname% {enter}
-Click, 239 354
+	Send !n
+	WinWaitActive, New Routing
+	CitrixSleep()
+	Send %desktopname% {enter}
+	Click, 239 354
 }
 
 ChangeDocumentTitle(numberofdays){
