@@ -86,7 +86,7 @@ if (ErrorLevel = 0) {
     Send !{F4}
 }
 if (ErrorLevel = 1) {
-    ImageClick("Chart")
+    ImageClick("chart")
     WinWaitActive, View Alerts/Flags, ,3
     if (ErrorLevel = 0) {
         Citrixsleep()
@@ -251,6 +251,18 @@ return
 Send ^e
 return
 
+#IfWinActive, Patient Registration - ;###########################################################
+
+#e::
+Send !e
+citrixsleep()
+send !e
+WinWaitActive, Find Recall -, , 5
+if (ErrorLevel = 0) {
+    Send !n
+}
+return
+
 ; End of Window Specific Hotkeys.  #########################################
 #IfWinActive
 
@@ -293,26 +305,43 @@ ImageClick(imagename){
 
 AfterRoutetoNextFlag(){
     CitrixSleep()
+    CitrixSleep()
+    IfWinActive, Chart Desktop -
+        Exit
     IfWinActive, View Alerts/Flags
         Send !{F4}
-    CitrixSleep()
     IfWinActive, Care Alert Warning
         Send !c
-    WinWaitActive, Chart -
-    citrixsleep()
-    citrixsleep()
-    imageclick("chart-desktop")
-    WinWaitActive, Chart Desktop -
-    citrixsleep()
-    citrixsleep()
-    imageclick("remove")
-    Citrixsleep()
-    Citrixsleep()
-    imageclick("open-flag")
-    WinWaitActive, View Alerts/Flags
-    citrixsleep()
-    citrixsleep()
-    Send !{F4}
+    WinWaitActive, Chart -, , 5
+    if (ErrorLevel = 0) {
+        citrixsleep()
+        citrixsleep()
+        imageclick("chart-desktop")
+        WinWaitActive, Chart Desktop - , , 5
+        if (ErrorLevel = 0) {
+            citrixsleep()
+            citrixsleep()
+            imageclick("remove")
+            Citrixsleep()
+            Citrixsleep()
+            imageclick("open-flag")
+            WinWaitActive, View Alerts/Flags, 3
+            if (ErrorLevel = 0) {
+                citrixsleep()
+                citrixsleep()
+                Send !{F4}
+            }
+            if (ErrorLevel = 1) {
+                ImageClick("chart")
+                WinWaitActive, View Alerts/Flags, ,3
+                if (ErrorLevel = 0) {
+                    Citrixsleep()
+                    Citrixsleep()
+                    Send !{F4}
+                }    
+            }
+        }
+    }
 }
 
 RouteToDesktop(desktopname){
