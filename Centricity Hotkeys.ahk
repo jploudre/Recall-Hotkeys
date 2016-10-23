@@ -22,62 +22,17 @@ return
 
 ;3 months
 F3::
-; In Chart Desktop, Documents
 location := CheckLocation()
 if (location = "Chart-Desktop-Documents") {
-    WinGetPos,,,winwidth,winheight,A
-    ImageSearch, ClickX, ClickY, 400, 140, %winwidth%, %winheight%, %A_ScriptDir%/files/blue.png
-    Mouseclick, Right, %ClickX%, %ClickY%
-    CitrixSleep()
-    CitrixSleep()
-    Send {Down 7} {Enter}
-    WinWaitActive, Edit Document Properties
-    CitrixSleep()
-    ; Focus on the Title Field
-    Mouseclick, Left, 105, 249
-    CitrixSleep()
-    today = 
-    EnvAdd, today, 90, days
-    FormatTime, upcomingvisit, %today%, M-yyyy
-    FormatTime, upcomingdaynumber, today, d
-    if (upcomingdaynumber <15)
-        mailingofmonth := "1st"
-    else
-        mailingofmonth := "2nd"
-    Send [%upcomingvisit% - %mailingofmonth%]{Space}
-    CitrixSleep()
-    Send {Enter}
-    exit
+	ChangeDocumentTitle(90)
 }
 return
 
+; 6 months
 F6::
-; In Chart Desktop, Documents
 location := CheckLocation()
 if (location = "Chart-Desktop-Documents") {
-    WinGetPos,,,winwidth,winheight,A
-    ImageSearch, ClickX, ClickY, 400, 140, %winwidth%, %winheight%, %A_ScriptDir%/files/blue.png
-    Mouseclick, Right, %ClickX%, %ClickY%
-    CitrixSleep()
-    CitrixSleep()
-    Send {Down 7} {Enter}
-    WinWaitActive, Edit Document Properties
-    CitrixSleep()
-    ; Focus on the Title Field
-    Mouseclick, Left, 105, 249
-    CitrixSleep()
-    today = 
-    EnvAdd, today, 180, days
-    FormatTime, upcomingvisit, %today%, M-yyyy
-    FormatTime, upcomingdaynumber, today, d
-    if (upcomingdaynumber <15)
-        mailingofmonth := "1st"
-    else
-        mailingofmonth := "2nd"
-    Send [%upcomingvisit% - %mailingofmonth%]{Space}
-    CitrixSleep()
-    Send {Enter}
-    exit
+	ChangeDocumentTitle(180)
 }
 return
 
@@ -92,10 +47,12 @@ return
 ;Open Flag
 #o::
 imageclick("open-flag")
-WinWaitActive, View Alerts/Flags
+WinWaitActive, View Alerts/Flags, , 5
+if (ErrorLevel = 0) {
 citrixsleep()
 citrixsleep()
 Send !{F4}
+}
 return
 
 #IfWinActive, New Recall - ;###########################################################
@@ -216,6 +173,9 @@ ImageClick(imagename){
     }
     CoordMode, Pixel, Window
     CoordMode, Mouse, Window
+    if (ErrorLevel > 0) {
+    exit
+    }
 }
 return
 
@@ -243,5 +203,30 @@ WinWaitActive, New Routing
 CitrixSleep()
 Send %desktopname% {enter}
 Click, 239 354
-WinWaitActive, Route Document
+}
+
+ChangeDocumentTitle(numberofdays){
+    WinGetPos,,,winwidth,winheight,A
+    ImageSearch, ClickX, ClickY, 400, 140, %winwidth%, %winheight%, %A_ScriptDir%/files/blue.png
+    Mouseclick, Right, %ClickX%, %ClickY%
+    CitrixSleep()
+    CitrixSleep()
+    Send {Down 7} {Enter}
+    WinWaitActive, Edit Document Properties
+    CitrixSleep()
+    ; Focus on the Title Field
+    Mouseclick, Left, 105, 249
+    CitrixSleep()
+    today = 
+    EnvAdd, today, %numberofdays%, days
+    FormatTime, upcomingvisit, %today%, M-yyyy
+    FormatTime, upcomingdaynumber, today, d
+    if (upcomingdaynumber <15)
+        mailingofmonth := "1st"
+    else
+        mailingofmonth := "2nd"
+    Send [%upcomingvisit% - %mailingofmonth%]{Space}
+    CitrixSleep()
+    Send {Enter}
+    exit
 }
