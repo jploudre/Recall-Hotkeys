@@ -12,3 +12,8 @@
 | Route Document           | Right Click a Name  | Removes Name                                  |
 | Route Document           | F1-F12              | Routes to January (F1) through December (F12) |
 | Route Document           | Win-R               | Route to Recall Desktop                       |
+
+---
+**Notes:**  
+
+? Modified 'Windows Key' behavior.  
