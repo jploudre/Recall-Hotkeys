@@ -12,6 +12,7 @@
 | Chart Desktop            | Win-S               | Signs (.rfu)                                  |
 | New Recall               | Right-click 'OK'    | Closes All, back to Chart Desktop             |
 | Find Recall              | Right-click 'OK'    | Closes All, back to Chart Desktop             |
+| Patient Regisration      | Win-E               | New Recall                                    |
 | Route Document           | Right Click 'Route' | Closes & goes to next flag                    |
 | Route Document           | Right Click a Name  | Removes Name                                  |
 | Route Document           | F1-F12              | Routes to January (F1) through December (F12) |
