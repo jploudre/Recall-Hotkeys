@@ -250,7 +250,7 @@ RButton::
 MouseGetPos, xpos, ypos
 ; I'm Done
 if ( 433 < xpos AND xpos < 491 AND 272 < ypos AND ypos < 292) { ; 'Close' button, right click
-    Send !{F4}
+    Mouseclick, Left, %xpos%, %ypos%
     CitrixSleep()
     Send !{F4}
     CitrixSleep()
