@@ -236,15 +236,18 @@ return
 
 #IfWinActive, Patient Registration - ;###########################################################
 
-/* ; Unreliable. 
+
 #e::
-Send !{e 2}
+Mousemove, 61, 67
+Mouseclick, left
+Mousemove, 0, 72, , R
+Mouseclick, left
 WinWaitActive, Find Recall -, , 5
 If (ErrorLevel = 0){
     Send !n
 }
 return
-*/
+
 
 #IfWinActive, Find Recall - ;###########################################################
 RButton::
