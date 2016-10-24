@@ -4,11 +4,16 @@ CoordMode, Mouse, Window
 SetKeyDelay, 30
 SendMode Input
 Menu, Tray, NoStandard
+Menu, Tray, Add, Reload, ReloadMacro
 Menu, Tray, Add, Exit, ExitScript
 return
 
 ExitScript:
 ExitApp
+return
+
+ReloadMacro:
+Reload
 return
 
 #IfWinActive, Chart - ;###########################################################
@@ -18,6 +23,26 @@ return
 imageclick("route")
 return
 
+#e::
+imageclick("registration")
+Loop, 30 {
+    CitrixSleep()
+    IfWinActive, Warning -,
+    {
+        Send !{F4}
+    }
+    ImageSearch, FoundX, FoundY, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, %A_ScriptDir%/files/appointments.png
+    if (ErrorLevel = 0) {
+        imageclick("appointments")
+    }
+	ImageSearch, FoundX, FoundY, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, %A_ScriptDir%/files/appointments-selected.png
+    if (ErrorLevel = 0) {
+        ; Done
+        break
+    }
+}
+return
+
 #IfWinActive, Chart Desktop - ;###########################################################
 
 ;3 months Rename
@@ -25,6 +50,7 @@ F3::
 location := CheckLocation()
 if (location = "Chart-Desktop-Documents") {
 	ChangeDocumentTitle(90)
+    return
 }
 return
 
@@ -33,6 +59,7 @@ F6::
 location := CheckLocation()
 if (location = "Chart-Desktop-Documents") {
 	ChangeDocumentTitle(180)
+    return
 }
 return
 
@@ -51,10 +78,25 @@ return
 ;Open Flag
 #o::
 imageclick("open-flag")
-WinWaitActive, View Alerts/Flags
-citrixsleep()
-citrixsleep()
-Send !{F4}
+WinWaitActive, View Alerts/Flags, ,3
+if (ErrorLevel = 0) {
+    Citrixsleep()
+    Citrixsleep()
+    Send !{F4}
+}
+if (ErrorLevel = 1) {
+    ImageClick("chart")
+    WinWaitActive, View Alerts/Flags, ,3
+    if (ErrorLevel = 0) {
+        Citrixsleep()
+        Citrixsleep()
+        Send !{F4}
+    }    
+}
+return
+
+#r::
+Imageclick("route-desktop")
 return
 
 #IfWinActive, New Recall - ;###########################################################
@@ -133,9 +175,70 @@ return
 ; For In Progress Note. Route to Recall Desktop, Delete Flag
 #r::
 RouteToDesktop("Recall")
-Send !r
-AfterRoutetoNextFlag()
 return
+
+#IfWinActive, End Update - ;###########################################################
+
+RButton::
+MouseGetPos, xpos, ypos
+; remove routing name
+if ( 28 < xpos AND xpos < 515 AND 250 < ypos AND ypos < 331) { ; Routing Names area, right click
+    Mouseclick, Left, %xpos%, %ypos%
+    Citrixsleep()
+    Send !m
+}
+; I'm Done
+if ( 354 < xpos AND xpos < 444 AND 499 < ypos AND ypos < 520) { ; 'Route' button, right click
+    Mouseclick, Left, %xpos%, %ypos%
+    AfterRoutetoNextFlag()
+}
+else {
+    Click right
+}
+return
+
+F1::
+RouteToDesktop("January")
+return
+F2::
+RouteToDesktop("February")
+return
+F3::
+RouteToDesktop("March")
+return
+F4::
+RouteToDesktop("April")
+return
+F5::
+RouteToDesktop("May")
+return
+F6::
+RouteToDesktop("June")
+return
+F7::
+RouteToDesktop("July")
+return
+F8::
+RouteToDesktop("August")
+return
+F9::
+RouteToDesktop("September")
+return
+F10::
+RouteToDesktop("October")
+return
+F11::
+RouteToDesktop("November")
+return
+F12::
+RouteToDesktop("December")
+return
+
+#r::
+RouteToDesktop("Recall")
+return
+
+#IfWinActive, Patient Registration - ;###########################################################
 
 ; End of Window Specific Hotkeys.  #########################################
 #IfWinActive
@@ -154,6 +257,7 @@ CheckLocation(){
 		ifWinActive, Chart Desktop -
 		return "Chart-Desktop-Documents"
 	}
+    return
 }
 
 ImageClick(imagename){
@@ -163,38 +267,63 @@ ImageClick(imagename){
     ImageSearch, FoundX, FoundY, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *n10 %ImagePathandName%
     if (ErrorLevel = 0) {
         Click, %FoundX%, %FoundY%
+        CoordMode, Pixel, Window
+        CoordMode, Mouse, Window
+        return
     }
+    
     CoordMode, Pixel, Window
     CoordMode, Mouse, Window
-    if (ErrorLevel > 0) {
+    ; If image is not found, do not continue Hotkey that called. 
+    if (ErrorLevel = 1) {
     exit
     }
 }
 
 AfterRoutetoNextFlag(){
-    WinWaitActive, Chart -
-    citrixsleep()
-    citrixsleep()
-    imageclick("chart-desktop")
-    WinWaitActive, Chart Desktop -
-    citrixsleep()
-    citrixsleep()
-    imageclick("remove")
-    Citrixsleep()
-    Citrixsleep()
-    imageclick("open-flag")
-    WinWaitActive, View Alerts/Flags
-    citrixsleep()
-    citrixsleep()
-    Send !{F4}
+    CitrixSleep()
+    CitrixSleep()
+    IfWinActive, Chart Desktop -
+        Exit
+    IfWinActive, View Alerts/Flags
+        Send !{F4}
+    IfWinActive, Care Alert Warning
+        Send !c
+    WinWaitActive, Chart -, , 5
+    if (ErrorLevel = 0) {
+        citrixsleep()
+        citrixsleep()
+        imageclick("chart-desktop")
+        WinWaitActive, Chart Desktop - , , 5
+        if (ErrorLevel = 0) {
+            citrixsleep()
+            citrixsleep()
+            imageclick("remove")
+            Citrixsleep()
+            Citrixsleep()
+            imageclick("open-flag")
+            WinWaitActive, View Alerts/Flags, 3
+            if (ErrorLevel = 0) {
+                citrixsleep()
+                citrixsleep()
+                citrixsleep()
+                Send !{F4}
+                exit
+            }
+        }
+    }
 }
 
 RouteToDesktop(desktopname){
 	Send !n
-	WinWaitActive, New Routing
-	CitrixSleep()
-	Send %desktopname% {enter}
-	Click, 239 354
+	WinWaitActive, New Routing, , 5
+    if (ErrorLevel = 0) {
+        CitrixSleep()
+        Send %desktopname% {enter}
+        CitrixSleep()
+        Click, 239 354
+        exit
+    }
 }
 
 ChangeDocumentTitle(numberofdays){
@@ -204,21 +333,23 @@ ChangeDocumentTitle(numberofdays){
     CitrixSleep()
     CitrixSleep()
     Send {Down 7} {Enter}
-    WinWaitActive, Edit Document Properties
-    CitrixSleep()
-    ; Focus on the Title Field
-    Mouseclick, Left, 105, 249
-    CitrixSleep()
-    today = 
-    EnvAdd, today, %numberofdays%, days
-    FormatTime, upcomingvisit, %today%, M-yyyy
-    FormatTime, upcomingdaynumber, today, d
-    if (upcomingdaynumber <15)
-        mailingofmonth := "1st"
-    else
-        mailingofmonth := "2nd"
-    Send [%upcomingvisit% - %mailingofmonth%]{Space}
-    CitrixSleep()
-    Send {Enter}
-    exit
+    WinWaitActive, Edit Document Properties, , 5
+    if (ErrorLevel = 0) {
+        CitrixSleep()
+        ; Focus on the Title Field
+        Mouseclick, Left, 105, 249
+        CitrixSleep()
+        today = 
+        EnvAdd, today, %numberofdays%, days
+        FormatTime, upcomingvisit, %today%, M-yyyy
+        FormatTime, upcomingdaynumber, today, d
+        if (upcomingdaynumber <15)
+            mailingofmonth := "1st"
+        else
+            mailingofmonth := "2nd"
+        Send [%upcomingvisit% - %mailingofmonth%]{Space}
+        CitrixSleep()
+        Send {Enter}
+        exit
+    }
 }
