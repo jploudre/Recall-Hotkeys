@@ -1,13 +1,11 @@
 ; Setup
 CoordMode, Mouse, Window
 #Persistent
-#Warn
 SetKeyDelay, 30
 SendMode Input
 Menu, Tray, NoStandard
 Menu, Tray, Add, Reload, ReloadMacro
 Menu, Tray, Add, Exit, ExitScript
-ListLines
 return
 
 ExitScript:
@@ -105,6 +103,7 @@ if ( 217 < xpos AND xpos < 274 AND 357 < ypos AND ypos < 377) { ; 'OK' button, r
     Send !{F4}
     CitrixSleep()
     Send !{F4}
+    CitrixSleep()
     imageclick("chart-desktop")
 }
 else {
