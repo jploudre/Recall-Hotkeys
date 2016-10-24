@@ -45,6 +45,15 @@ Loop, 50 {
 }
 return
 
+#s::
+imageclick("append")
+Citrixsleep()
+Send .rfu{space}
+Citrixsleep()
+Send !s
+return
+
+
 #IfWinActive, Chart Desktop - ;###########################################################
 
 ;3 months Rename
@@ -282,7 +291,15 @@ AfterRoutetoNextFlag(){
     CitrixSleep()
     CitrixSleep()
     IfWinActive, Chart Desktop -
-        Exit
+    {
+        citrixsleep()
+        citrixsleep()
+        imageclick("remove")
+        Citrixsleep()
+        Citrixsleep()
+        OpenFlag() 
+        exit
+    }
     IfWinActive, View Alerts/Flags
         Send !{F4}
     IfWinActive, Care Alert Warning
@@ -336,6 +353,8 @@ OpenFlag(){
         if (ErrorLevel = 0) {
             imageclick("chart-alt")
         }
+        IfWinActive, Care Alert Warning
+            Send !c
     }   
 }
 
