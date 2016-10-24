@@ -9,6 +9,7 @@
 | Chart Desktop, Documents | F6                  | Renames 6 month                               |
 | Chart Desktop, Flags     | Win-O               | Opens Flag                                    |
 | Chart Desktop, Documents | Win-R               | Route Document                                |
+| Chart Desktop            | Win-S               | Signs (.rfu)                                  |
 | New Recall               | Right-click 'OK'    | Closes All                                    |
 | Route Document           | Right Click 'Route' | Closes & goes to next flag                    |
 | Route Document           | Right Click a Name  | Removes Name                                  |
