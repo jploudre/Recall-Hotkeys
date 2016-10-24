@@ -18,9 +18,3 @@
 | End Update               | Right Click a Name  | Like Route Document above                     |
 | End Update               | F1-F12              | Like Route Document above                     |
 | End Update               | Win-R               | Like Route Document above                     |
-
-
----
-**Notes:**  
- 
-? Use Post-its for learning. 
