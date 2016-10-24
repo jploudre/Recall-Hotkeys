@@ -4,9 +4,9 @@
 | ------------------------ | ------------------- | --------------------------------------------- |
 | Chart                    | Win-R               | Route Document                                |
 | Chart                    | Win-E               | Open Registration then Appointments           |
+| Chart                    | Win-S               | Signs (.rfu)                                  |
 | Chart Desktop, Documents | F3                  | Renames 3 month                               |
 | Chart Desktop, Documents | F6                  | Renames 6 month                               |
-| Chart Desktop            | Win-S               | Signs (.rfu)                                  |
 | Chart Desktop, Flags     | Win-O               | Opens Flag                                    |
 | Chart Desktop, Documents | Win-R               | Route Document                                |
 | New Recall               | Right-click 'OK'    | Closes All                                    |
