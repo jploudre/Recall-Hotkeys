@@ -3,7 +3,7 @@
 | In this spot:            | This Trigger:       | Does this:                                    |
 | ------------------------ | ------------------- | --------------------------------------------- |
 | Chart                    | Win-R               | Route Document                                |
-| Chart                    | Win-E               | Open Registration/Appointments                |
+| Chart                    | Win-E               | Open Registration then Appointments           |
 | Chart Desktop, Documents | F3                  | Renames 3 month                               |
 | Chart Desktop, Documents | F6                  | Renames 6 month                               |
 | Chart Desktop            | Win-S               | Signs (.rfu)                                  |

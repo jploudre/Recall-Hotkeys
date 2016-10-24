@@ -1,11 +1,13 @@
 ; Setup
 CoordMode, Mouse, Window
 #Persistent
+#Warn
 SetKeyDelay, 30
 SendMode Input
 Menu, Tray, NoStandard
 Menu, Tray, Add, Reload, ReloadMacro
 Menu, Tray, Add, Exit, ExitScript
+ListLines
 return
 
 ExitScript:
@@ -25,17 +27,17 @@ return
 
 #e::
 imageclick("registration")
-Loop, 30 {
+Loop, 50 {
     CitrixSleep()
     IfWinActive, Warning -,
     {
         Send !{F4}
     }
-    ImageSearch, FoundX, FoundY, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, %A_ScriptDir%/files/appointments.png
+    ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, %A_ScriptDir%/files/appointments.png
     if (ErrorLevel = 0) {
         imageclick("appointments")
     }
-	ImageSearch, FoundX, FoundY, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, %A_ScriptDir%/files/appointments-selected.png
+	ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, %A_ScriptDir%/files/appointments-selected.png
     if (ErrorLevel = 0) {
         ; Done
         break
@@ -77,22 +79,7 @@ return
 
 ;Open Flag
 #o::
-imageclick("open-flag")
-WinWaitActive, View Alerts/Flags, ,3
-if (ErrorLevel = 0) {
-    Citrixsleep()
-    Citrixsleep()
-    Send !{F4}
-}
-if (ErrorLevel = 1) {
-    ImageClick("chart")
-    WinWaitActive, View Alerts/Flags, ,3
-    if (ErrorLevel = 0) {
-        Citrixsleep()
-        Citrixsleep()
-        Send !{F4}
-    }    
-}
+OpenFlag()
 return
 
 #r::
@@ -109,6 +96,7 @@ if ( 217 < xpos AND xpos < 274 AND 357 < ypos AND ypos < 377) { ; 'OK' button, r
     Send !{F4}
     CitrixSleep()
     Send !{F4}
+    imageclick("chart-desktop")
 }
 else {
     Click    
@@ -120,7 +108,7 @@ return
 RButton::
 MouseGetPos, xpos, ypos
 ; remove routing name
-if ( 28 < xpos AND xpos < 515 AND 168 < ypos AND ypos < 255) { ; Routing Names area, right click
+if ( 28 < xpos AND xpos < 515 AND 171 < ypos AND ypos < 255) { ; Routing Names area, right click
     Mouseclick, Left, %xpos%, %ypos%
     Citrixsleep()
     Send !m
@@ -240,6 +228,15 @@ return
 
 #IfWinActive, Patient Registration - ;###########################################################
 
+/* ; Unreliable. 
+#e::
+Send !{e 2}
+WinWaitActive, Find Recall -, , 5
+If (ErrorLevel = 0){
+    Send !n
+}
+return
+*/
 ; End of Window Specific Hotkeys.  #########################################
 #IfWinActive
 
@@ -252,14 +249,15 @@ return
 
 CheckLocation(){
 	WinGetPos,,,winwidth,winheight,A
-	ImageSearch, FoundX, FoundY, 0, 0, %winwidth%, %winheight%, %A_ScriptDir%/files/open.png
-	if ( 80 < FoundY < 100) {
+	ImageSearch, openiconx, openicony, 0, 0, %winwidth%, %winheight%, %A_ScriptDir%/files/open.png
+	if ( 80 < openicony < 100) {
 		ifWinActive, Chart Desktop -
 		return "Chart-Desktop-Documents"
 	}
     return
 }
 
+; Exits if image not found
 ImageClick(imagename){
     CoordMode, Pixel, Screen
     CoordMode, Mouse, Screen
@@ -289,27 +287,19 @@ AfterRoutetoNextFlag(){
         Send !{F4}
     IfWinActive, Care Alert Warning
         Send !c
-    WinWaitActive, Chart -, , 5
+    WinWaitActive, Chart -, , 10
     if (ErrorLevel = 0) {
         citrixsleep()
         citrixsleep()
         imageclick("chart-desktop")
-        WinWaitActive, Chart Desktop - , , 5
+        WinWaitActive, Chart Desktop - , , 10
         if (ErrorLevel = 0) {
             citrixsleep()
             citrixsleep()
             imageclick("remove")
             Citrixsleep()
             Citrixsleep()
-            imageclick("open-flag")
-            WinWaitActive, View Alerts/Flags, 3
-            if (ErrorLevel = 0) {
-                citrixsleep()
-                citrixsleep()
-                citrixsleep()
-                Send !{F4}
-                exit
-            }
+            OpenFlag()
         }
     }
 }
@@ -324,6 +314,29 @@ RouteToDesktop(desktopname){
         Click, 239 354
         exit
     }
+}
+
+OpenFlag(){
+    imageclick("open-flag")
+    WinWaitActive, View Alerts/Flags, , 20
+    if (ErrorLevel = 0) {
+        Citrixsleep()
+        Citrixsleep()
+        Send !{F4}
+        citrixsleep()
+        CoordMode, Pixel, Screen
+        ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, %A_ScriptDir%/files/chart.png
+        CoordMode, Pixel, Window
+        if (ErrorLevel = 0) {
+            imageclick("chart")
+        }
+        CoordMode, Pixel, Screen
+        ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, %A_ScriptDir%/files/chart-alt.png
+        CoordMode, Pixel, Window
+        if (ErrorLevel = 0) {
+            imageclick("chart-alt")
+        }
+    }   
 }
 
 ChangeDocumentTitle(numberofdays){
