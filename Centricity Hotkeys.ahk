@@ -72,18 +72,6 @@ if (location = "Chart-Desktop-Documents") {
 }
 return
 
-; Signs with .rfu quicktext
-#s::
-location := CheckLocation()
-if (location = "Chart-Desktop-Documents") {
-	Send ^j
-	Citrixsleep()
-	Send .rfu{space}
-	Citrixsleep()
-	Send !s
-}
-return
-
 ;Open Flag
 #o::
 OpenFlag()
@@ -394,11 +382,7 @@ ChangeDocumentTitle(numberofdays){
         EnvAdd, today, %numberofdays%, days
         FormatTime, upcomingvisit, %today%, M-yyyy
         FormatTime, upcomingdaynumber, today, d
-        if (upcomingdaynumber <15)
-            mailingofmonth := "1st"
-        else
-            mailingofmonth := "2nd"
-        Send [%upcomingvisit% - %mailingofmonth%]{Space}
+        Send [%upcomingvisit%]{Space}
         CitrixSleep()
         Send {Enter}
         exit

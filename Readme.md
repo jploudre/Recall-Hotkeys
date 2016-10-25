@@ -9,7 +9,6 @@
 | Chart Desktop, Documents | F6                  | Renames 6 month                               |
 | Chart Desktop, Flags     | Win-O               | Opens Flag                                    |
 | Chart Desktop, Documents | Win-R               | Route Document                                |
-| Chart Desktop            | Win-S               | Signs (.rfu)                                  |
 | New Recall               | Right-click 'OK'    | Closes All, back to Chart Desktop             |
 | Find Recall              | Right-click 'OK'    | Closes All, back to Chart Desktop             |
 | Patient Regisration      | Win-E               | New Recall                                    |
