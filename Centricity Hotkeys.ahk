@@ -31,11 +31,11 @@ Loop, 50 {
     {
         Send !{F4}
     }
-    ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, %A_ScriptDir%/files/appointments.png
+    ImageSearch, , , -2000, -2000, %A_ScreenWidth%, %A_ScreenHeight%, %A_ScriptDir%/files/appointments.png
     if (ErrorLevel = 0) {
         imageclick("appointments")
     }
-	ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, %A_ScriptDir%/files/appointments-selected.png
+	ImageSearch, , , -2000, -2000, %A_ScreenWidth%, %A_ScreenHeight%, %A_ScriptDir%/files/appointments-selected.png
     if (ErrorLevel = 0) {
         ; Done
         break
@@ -265,7 +265,7 @@ return
 
 CheckLocation(){
 	WinGetPos,,,winwidth,winheight,A
-	ImageSearch, openiconx, openicony, 0, 0, %winwidth%, %winheight%, %A_ScriptDir%/files/open.png
+	ImageSearch, openiconx, openicony, -2000, -2000, %winwidth%, %winheight%, %A_ScriptDir%/files/open.png
 	if ( 80 < openicony < 100) {
 		ifWinActive, Chart Desktop -
 		return "Chart-Desktop-Documents"
@@ -278,7 +278,7 @@ ImageClick(imagename){
     CoordMode, Pixel, Screen
     CoordMode, Mouse, Screen
     ImagePathandName := A_ScriptDir . "\files\" . imagename . ".PNG"
-    ImageSearch, FoundX, FoundY, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *n10 %ImagePathandName%
+    ImageSearch, FoundX, FoundY, -2000, -2000, %A_ScreenWidth%, %A_ScreenHeight%, *n10 %ImagePathandName%
     if (ErrorLevel = 0) {
         Click, %FoundX%, %FoundY%
         CoordMode, Pixel, Window
@@ -349,13 +349,13 @@ OpenFlag(){
         Send !{F4}
         citrixsleep()
         CoordMode, Pixel, Screen
-        ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, %A_ScriptDir%/files/chart.png
+        ImageSearch, , , -2000, -2000, %A_ScreenWidth%, %A_ScreenHeight%, %A_ScriptDir%/files/chart.png
         CoordMode, Pixel, Window
         if (ErrorLevel = 0) {
             imageclick("chart")
         }
         CoordMode, Pixel, Screen
-        ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, %A_ScriptDir%/files/chart-alt.png
+        ImageSearch, , , -2000, -2000, %A_ScreenWidth%, %A_ScreenHeight%, %A_ScriptDir%/files/chart-alt.png
         CoordMode, Pixel, Window
         if (ErrorLevel = 0) {
             imageclick("chart-alt")
