@@ -259,6 +259,10 @@ Mouseclick, left
 WinWaitActive, Find Recall -, , 5
 If (ErrorLevel = 0){
     Send !n
+    WinWaitActive, New Recall -, ,5
+    If (ErrorLevel = 0){
+    Click, 218, 93
+    }
 }
 return
 
