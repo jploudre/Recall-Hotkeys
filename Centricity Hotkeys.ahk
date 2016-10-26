@@ -99,6 +99,25 @@ else {
 }
 return
 
+#IfWinActive, Modify Recall - ;###########################################################
+
+RButton::
+MouseGetPos, xpos, ypos
+if ( 217 < xpos AND xpos < 274 AND 357 < ypos AND ypos < 377) { ; 'OK' button, right click
+    Mouseclick, Left, %xpos%, %ypos%
+    Citrixsleep()
+    Send !{F4}
+    CitrixSleep()
+    Send !{F4}
+    CitrixSleep()
+    imageclick("chart-desktop")
+}
+else {
+    Click    
+}
+return
+
+
 #IfWinActive, Route Document - ;###########################################################
 
 RButton::
