@@ -156,7 +156,10 @@ F12::
 RouteToDesktop("December")
 return
 
-; For In Progress Note. Route to Recall Desktop, Delete Flag
+#d::
+RouteToDesktop("Diabetes")
+return
+
 #r::
 RouteToDesktop("Recall")
 return
@@ -216,6 +219,10 @@ RouteToDesktop("November")
 return
 F12::
 RouteToDesktop("December")
+return
+
+#d::
+RouteToDesktop("Diabetes")
 return
 
 #r::
