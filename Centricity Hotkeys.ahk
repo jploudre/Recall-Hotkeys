@@ -6,6 +6,8 @@ SendMode Input
 Menu, Tray, NoStandard
 Menu, Tray, Add, Reload, ReloadMacro
 Menu, Tray, Add, Exit, ExitScript
+#Warn
+ListLines
 return
 
 ExitScript:
@@ -17,6 +19,13 @@ Reload
 return
 
 #IfWinActive, Chart - ;###########################################################
+
+`::
+IfWinExist, Update
+WinActivate, Update
+IfWinNotExist, Update
+imageclick("chart-desktop")
+return
 
 ;Route
 #r::
@@ -54,6 +63,13 @@ return
 
 #IfWinActive, Chart Desktop - ;###########################################################
 
+`::
+IfWinExist, Update
+WinActivate, Update
+IfWinNotExist, Update
+ClickChart()
+return
+
 ;3 months Rename
 F3::
 location := CheckLocation()
@@ -73,13 +89,26 @@ if (location = "Chart-Desktop-Documents") {
 return
 
 ;Open Flag
+#g::
 #o::
+; If in Documents, Open that, otherwise try openflag()
+location := CheckLocation()
+if (location = "Chart-Desktop-Documents") {
+    OpenDocument()
+    return
+}
 OpenFlag()
 return
 
 #r::
 Imageclick("route-desktop")
 return
+
+#IfWinActive, Update - ;###########################################################
+
+`::
+WinActivate, Chart
+Return
 
 #IfWinActive, New Recall - ;###########################################################
 
@@ -300,7 +329,8 @@ CheckLocation(){
 		ifWinActive, Chart Desktop -
 		return "Chart-Desktop-Documents"
 	}
-    return
+    else
+    return "Chart-Other"
 }
 
 ; Exits if image not found
@@ -378,6 +408,18 @@ OpenFlag(){
         Citrixsleep()
         Send !{F4}
         citrixsleep()
+        ClickChart()
+        IfWinActive, Care Alert Warning
+            Send !c
+    }   
+}
+
+OpenDocument(){
+    imageclick("open")
+}
+
+ClickChart(){
+    ; Sometimes chart icon has different background color.
         CoordMode, Pixel, Screen
         ImageSearch, , , -2000, -2000, %A_ScreenWidth%, %A_ScreenHeight%, %A_ScriptDir%/files/chart.png
         CoordMode, Pixel, Window
@@ -390,9 +432,7 @@ OpenFlag(){
         if (ErrorLevel = 0) {
             imageclick("chart-alt")
         }
-        IfWinActive, Care Alert Warning
-            Send !c
-    }   
+
 }
 
 ChangeDocumentTitle(numberofdays){
