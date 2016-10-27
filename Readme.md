@@ -22,6 +22,7 @@
 | ------------------------ | ------------------- | --------------------------------------------- |
 | Chart                    | Win-E               | Open Registration then Appointments           |
 | New Recall               | Right-click 'OK'    | Closes All, back to Chart Desktop             |
+| Modify Recall            | Right-click 'OK'    | Closes All, back to Chart Desktop             |
 | Find Recall              | Right-click 'OK'    | Closes All, back to Chart Desktop             |
 | Patient Registration     | Win-E               | New Recall                                    |
 
