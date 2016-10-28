@@ -26,7 +26,7 @@
 | Find Recall              | Right-click 'OK'    | Closes All, back to Chart Desktop             |
 | Patient Registration     | Win-E               | New Recall                                    |
 
-## Routing ('Route Document' & 'End Update')
+## Routing & End Update
 
 | This Trigger:                 | Does this:                                    |
 | -------------------           | --------------------------------------------- |

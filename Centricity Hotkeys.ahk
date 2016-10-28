@@ -6,8 +6,6 @@ SendMode Input
 Menu, Tray, NoStandard
 Menu, Tray, Add, Reload, ReloadMacro
 Menu, Tray, Add, Exit, ExitScript
-#Warn
-ListLines
 return
 
 ExitScript:
@@ -75,7 +73,7 @@ F3::
 location := CheckLocation()
 if (location = "Chart-Desktop-Documents") {
 	ChangeDocumentTitle(90)
-    return
+    exit
 }
 return
 
@@ -84,7 +82,7 @@ F6::
 location := CheckLocation()
 if (location = "Chart-Desktop-Documents") {
 	ChangeDocumentTitle(180)
-    return
+    exit
 }
 return
 
@@ -95,7 +93,7 @@ return
 location := CheckLocation()
 if (location = "Chart-Desktop-Documents") {
     OpenDocument()
-    return
+    exit
 }
 OpenFlag()
 return
@@ -325,10 +323,12 @@ return
 CheckLocation(){
 	WinGetPos,,,winwidth,winheight,A
 	ImageSearch, openiconx, openicony, -2000, -2000, %winwidth%, %winheight%, %A_ScriptDir%/files/open.png
-	if ( 80 < openicony < 100) {
+    if (ErrorLevel = 0) {
+        if ( 80 < openicony < 100) {
 		ifWinActive, Chart Desktop -
 		return "Chart-Desktop-Documents"
-	}
+        }
+    }
     else
     return "Chart-Other"
 }
