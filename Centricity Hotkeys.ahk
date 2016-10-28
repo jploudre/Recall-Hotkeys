@@ -6,6 +6,8 @@ SendMode Input
 Menu, Tray, NoStandard
 Menu, Tray, Add, Reload, ReloadMacro
 Menu, Tray, Add, Exit, ExitScript
+#Warn
+ListLines
 return
 
 ExitScript:
@@ -17,6 +19,13 @@ Reload
 return
 
 #IfWinActive, Chart - ;###########################################################
+
+`::
+IfWinExist, Update
+WinActivate, Update
+IfWinNotExist, Update
+imageclick("chart-desktop")
+return
 
 ;Route
 #r::
@@ -31,11 +40,11 @@ Loop, 50 {
     {
         Send !{F4}
     }
-    ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, %A_ScriptDir%/files/appointments.png
+    ImageSearch, , , -2000, -2000, %A_ScreenWidth%, %A_ScreenHeight%, %A_ScriptDir%/files/appointments.png
     if (ErrorLevel = 0) {
         imageclick("appointments")
     }
-	ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, %A_ScriptDir%/files/appointments-selected.png
+	ImageSearch, , , -2000, -2000, %A_ScreenWidth%, %A_ScreenHeight%, %A_ScriptDir%/files/appointments-selected.png
     if (ErrorLevel = 0) {
         ; Done
         break
@@ -53,6 +62,13 @@ return
 
 
 #IfWinActive, Chart Desktop - ;###########################################################
+
+`::
+IfWinExist, Update
+WinActivate, Update
+IfWinNotExist, Update
+ClickChart()
+return
 
 ;3 months Rename
 F3::
@@ -72,26 +88,27 @@ if (location = "Chart-Desktop-Documents") {
 }
 return
 
-; Signs with .rfu quicktext
-#s::
+;Open Flag
+#g::
+#o::
+; If in Documents, Open that, otherwise try openflag()
 location := CheckLocation()
 if (location = "Chart-Desktop-Documents") {
-	Send ^j
-	Citrixsleep()
-	Send .rfu{space}
-	Citrixsleep()
-	Send !s
+    OpenDocument()
+    return
 }
-return
-
-;Open Flag
-#o::
 OpenFlag()
 return
 
 #r::
 Imageclick("route-desktop")
 return
+
+#IfWinActive, Update - ;###########################################################
+
+`::
+WinActivate, Chart
+Return
 
 #IfWinActive, New Recall - ;###########################################################
 
@@ -110,6 +127,25 @@ else {
     Click right
 }
 return
+
+#IfWinActive, Modify Recall - ;###########################################################
+
+RButton::
+MouseGetPos, xpos, ypos
+if ( 217 < xpos AND xpos < 274 AND 357 < ypos AND ypos < 377) { ; 'OK' button, right click
+    Mouseclick, Left, %xpos%, %ypos%
+    Citrixsleep()
+    Send !{F4}
+    CitrixSleep()
+    Send !{F4}
+    CitrixSleep()
+    imageclick("chart-desktop")
+}
+else {
+    Click    
+}
+return
+
 
 #IfWinActive, Route Document - ;###########################################################
 
@@ -168,7 +204,10 @@ F12::
 RouteToDesktop("December")
 return
 
-; For In Progress Note. Route to Recall Desktop, Delete Flag
+#d::
+RouteToDesktop("Diabetes")
+return
+
 #r::
 RouteToDesktop("Recall")
 return
@@ -230,6 +269,10 @@ F12::
 RouteToDesktop("December")
 return
 
+#d::
+RouteToDesktop("Diabetes")
+return
+
 #r::
 RouteToDesktop("Recall")
 return
@@ -245,6 +288,10 @@ Mouseclick, left
 WinWaitActive, Find Recall -, , 5
 If (ErrorLevel = 0){
     Send !n
+    WinWaitActive, New Recall -, ,5
+    If (ErrorLevel = 0){
+    Click, 218, 93
+    }
 }
 return
 
@@ -277,12 +324,13 @@ return
 
 CheckLocation(){
 	WinGetPos,,,winwidth,winheight,A
-	ImageSearch, openiconx, openicony, 0, 0, %winwidth%, %winheight%, %A_ScriptDir%/files/open.png
+	ImageSearch, openiconx, openicony, -2000, -2000, %winwidth%, %winheight%, %A_ScriptDir%/files/open.png
 	if ( 80 < openicony < 100) {
 		ifWinActive, Chart Desktop -
 		return "Chart-Desktop-Documents"
 	}
-    return
+    else
+    return "Chart-Other"
 }
 
 ; Exits if image not found
@@ -290,7 +338,7 @@ ImageClick(imagename){
     CoordMode, Pixel, Screen
     CoordMode, Mouse, Screen
     ImagePathandName := A_ScriptDir . "\files\" . imagename . ".PNG"
-    ImageSearch, FoundX, FoundY, 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, *n10 %ImagePathandName%
+    ImageSearch, FoundX, FoundY, -2000, -2000, %A_ScreenWidth%, %A_ScreenHeight%, *n10 %ImagePathandName%
     if (ErrorLevel = 0) {
         Click, %FoundX%, %FoundY%
         CoordMode, Pixel, Window
@@ -360,21 +408,31 @@ OpenFlag(){
         Citrixsleep()
         Send !{F4}
         citrixsleep()
+        ClickChart()
+        IfWinActive, Care Alert Warning
+            Send !c
+    }   
+}
+
+OpenDocument(){
+    imageclick("open")
+}
+
+ClickChart(){
+    ; Sometimes chart icon has different background color.
         CoordMode, Pixel, Screen
-        ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, %A_ScriptDir%/files/chart.png
+        ImageSearch, , , -2000, -2000, %A_ScreenWidth%, %A_ScreenHeight%, %A_ScriptDir%/files/chart.png
         CoordMode, Pixel, Window
         if (ErrorLevel = 0) {
             imageclick("chart")
         }
         CoordMode, Pixel, Screen
-        ImageSearch, , , 0, 0, %A_ScreenWidth%, %A_ScreenHeight%, %A_ScriptDir%/files/chart-alt.png
+        ImageSearch, , , -2000, -2000, %A_ScreenWidth%, %A_ScreenHeight%, %A_ScriptDir%/files/chart-alt.png
         CoordMode, Pixel, Window
         if (ErrorLevel = 0) {
             imageclick("chart-alt")
         }
-        IfWinActive, Care Alert Warning
-            Send !c
-    }   
+
 }
 
 ChangeDocumentTitle(numberofdays){
@@ -394,11 +452,7 @@ ChangeDocumentTitle(numberofdays){
         EnvAdd, today, %numberofdays%, days
         FormatTime, upcomingvisit, %today%, M-yyyy
         FormatTime, upcomingdaynumber, today, d
-        if (upcomingdaynumber <15)
-            mailingofmonth := "1st"
-        else
-            mailingofmonth := "2nd"
-        Send [%upcomingvisit% - %mailingofmonth%]{Space}
+        Send [%upcomingvisit%]{Space}
         CitrixSleep()
         Send {Enter}
         exit

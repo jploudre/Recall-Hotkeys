@@ -1,6 +1,6 @@
 {fn Recall() {local t
 MEL_SEND_FLAG("Flag","recallentry","N",str(._TODAYSDATE),PATIENT._CASUALNAME,"Recall entered in today's note","Update","")
-t = "-->"+"\t"+"Sent to recall desktop"+HRET
+t = HRET+"-->"+"\t"+"Sent to recall desktop"+HRET
 t = t+"\t"+"Ordering Provider: "+PATIENT.RESPPROVID+HRET
 t = t+"\t"+"Time to be done: "+HRET
 t = t+"\t"+"Labs or other testing include: "+HRET
