@@ -52,10 +52,13 @@ return
 
 #s::
 imageclick("append")
-Citrixsleep()
-Send .rfu{space}
-Citrixsleep()
-Send !s
+WinWaitActive, Append to, , 3
+if (ErrorLevel = 0) {
+    CitrixSleep()
+    Send .rfu{space}
+    Citrixsleep()
+    Send !s
+    }
 return
 
 #+d::
