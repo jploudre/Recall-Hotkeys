@@ -9,12 +9,14 @@
 | Chart Desktop            | Win-G or Win-O      | Opens Flag or Document                        |
 | Chart Desktop, Documents | Win-R               | Route Document                                |
 
-## Diabetes Renaming
+## Diabetes
 
 | In this spot:            | This Trigger:       | Does this:                                    |
 | ------------------------ | ------------------- | --------------------------------------------- |
 | Chart Desktop, Documents | F3                  | Renames 3 month                               |
 | Chart Desktop, Documents | F6                  | Renames 6 month                               |
+| Chart, Documents         | Win-Shift-D         | Opens zzDiabetes Append, Focuses on Exam                               |
+
 
 ## Recall  Letters
 
