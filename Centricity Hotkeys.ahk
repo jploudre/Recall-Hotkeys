@@ -137,6 +137,21 @@ return
 WinActivate, Chart
 Return
 
+#+s::
+Send ^e
+WinWaitActive, End Update, ,4
+    if (ErrorLevel = 0) {
+        Send !m
+        Send !m
+        Send !m
+        Send !m
+        Send !s
+        WinWaitNotActive, End Update
+        CitrixSleep()
+        imageclick("chart-desktop")
+    }
+return
+
 #IfWinActive, New Recall - ;###########################################################
 
 RButton::
