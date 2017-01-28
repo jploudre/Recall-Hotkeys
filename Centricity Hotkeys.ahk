@@ -25,6 +25,20 @@ IfWinNotExist, Update
 imageclick("chart-desktop")
 return
 
+#a::
+imageclick("append")
+WinWaitActive, Append to, , 3
+    if (ErrorLevel = 0) {
+        CitrixSleep()
+        Send !F
+        WinWaitActive, Append Document ; no timeout needed
+        CitrixSleep()
+        Send Recall
+        Click, 336, 178
+    }
+return
+
+
 ;Route
 #r::
 imageclick("route")
