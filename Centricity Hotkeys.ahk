@@ -25,6 +25,20 @@ IfWinNotExist, Update
 imageclick("chart-desktop")
 return
 
+#a::
+imageclick("append")
+WinWaitActive, Append to, , 3
+    if (ErrorLevel = 0) {
+        CitrixSleep()
+        Send !F
+        WinWaitActive, Append Document ; no timeout needed
+        CitrixSleep()
+        Send Recall
+        Click, 336, 178
+    }
+return
+
+
 ;Route
 #r::
 imageclick("route")
@@ -52,12 +66,41 @@ return
 
 #s::
 imageclick("append")
-Citrixsleep()
-Send .rfu{space}
-Citrixsleep()
-Send !s
+WinWaitActive, Append to, , 3
+if (ErrorLevel = 0) {
+    CitrixSleep()
+    Send .rfu{space}
+    Citrixsleep()
+    Send !s
+    }
 return
 
+#+d::
+imageclick("append")
+WinWaitActive, Append to, , 3
+    if (ErrorLevel = 0) {
+        CitrixSleep()
+        Send !F
+        WinWaitActive, Append Document ; no timeout needed
+        CitrixSleep()
+        Send zzDia
+        CitrixSleep()
+        Send {Enter}
+        WinWaitActive, Update ; no timeout needed
+        if (ErrorLevel = 0) {
+            CitrixSleep()
+            Send +{F8}
+            CitrixSleep()
+            Send ^{PgDn}
+            CitrixSleep()
+            CitrixSleep()
+            click, 841, 83 ; Diabetes Tab, hard coded
+            CitrixSleep()
+            CitrixSleep()
+            click, 271, 621 ; Exam Done Elsewhere, hardcoded
+        }
+    }
+return
 
 #IfWinActive, Chart Desktop - ;###########################################################
 
@@ -107,6 +150,21 @@ return
 `::
 WinActivate, Chart
 Return
+
+#+s::
+Send ^e
+WinWaitActive, End Update, ,4
+    if (ErrorLevel = 0) {
+        Send !m
+        Send !m
+        Send !m
+        Send !m
+        Send !s
+        WinWaitNotActive, End Update
+        CitrixSleep()
+        imageclick("chart-desktop")
+    }
+return
 
 #IfWinActive, New Recall - ;###########################################################
 
