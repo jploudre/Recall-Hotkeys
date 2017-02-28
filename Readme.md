@@ -7,7 +7,6 @@
 | Chart         | Win-R         | Route Document             |
 | Chart         | Win-S         | Signs (.rfu)               |
 | Chart         | Win-A         | Appends with Recall Append |
-
 | Chart Desktop            | Win-G or Win-O | Opens Flag or Document                                  |
 | Chart Desktop, Documents | Win-R          | Route Document                                          |
 | Update                   | Win-Shift-S    | End Update, Remove Routing, Sign, Back to Chart Desktop |
