@@ -34,7 +34,7 @@ WinWaitActive, Append to, , 3
         WinWaitActive, Append Document ; no timeout needed
         CitrixSleep()
         Send Recall
-        Click, 336, 178
+        Send !p
     }
 return
 
@@ -97,7 +97,7 @@ WinWaitActive, Append to, , 3
             click, 841, 83 ; Diabetes Tab, hard coded
             CitrixSleep()
             CitrixSleep()
-            click, 271, 621 ; Exam Done Elsewhere, hardcoded
+            click, 273, 623 ; Exam Done Elsewhere, hardcoded
         }
     }
 return
@@ -170,7 +170,7 @@ return
 
 RButton::
 MouseGetPos, xpos, ypos
-if ( 217 < xpos AND xpos < 274 AND 357 < ypos AND ypos < 377) { ; 'OK' button, right click
+if ( 219 < xpos AND xpos < 275 AND 336 < ypos AND ypos < 355) { ; 'OK' button, right click
     Mouseclick, Left, %xpos%, %ypos%
     Citrixsleep()
     Send !{F4}
@@ -188,7 +188,7 @@ return
 
 RButton::
 MouseGetPos, xpos, ypos
-if ( 217 < xpos AND xpos < 274 AND 357 < ypos AND ypos < 377) { ; 'OK' button, right click
+if ( 219 < xpos AND xpos < 275 AND 336 < ypos AND ypos < 355) { ; 'OK' button, right click
     Mouseclick, Left, %xpos%, %ypos%
     Citrixsleep()
     Send !{F4}
@@ -208,13 +208,13 @@ return
 RButton::
 MouseGetPos, xpos, ypos
 ; remove routing name
-if ( 28 < xpos AND xpos < 515 AND 171 < ypos AND ypos < 255) { ; Routing Names area, right click
+if ( 28 < xpos AND xpos < 515 AND 152 < ypos AND ypos < 231) { ; Routing Names area, right click
     Mouseclick, Left, %xpos%, %ypos%
     Citrixsleep()
     Send !m
 }
 ; I'm Done
-if ( 373 < xpos AND xpos < 445 AND 310 < ypos AND ypos < 331) { ; 'Route' button, right click
+if ( 293 < xpos AND xpos < 365 AND 288 < ypos AND ypos < 309) { ; 'Route' button, right click
     Mouseclick, Left, %xpos%, %ypos%
     AfterRoutetoNextFlag()
 }
@@ -273,7 +273,7 @@ return
 RButton::
 MouseGetPos, xpos, ypos
 ; remove routing name
-if ( 28 < xpos AND xpos < 515 AND 250 < ypos AND ypos < 331) { ; Routing Names area, right click
+if ( 30 < xpos AND xpos < 516 AND 230 < ypos AND ypos < 310) { ; Routing Names area, right click
     Mouseclick, Left, %xpos%, %ypos%
     Citrixsleep()
     Send !m
@@ -337,17 +337,13 @@ return
 
 
 #e::
-Mousemove, 61, 67
+Mousemove, 58, 50
 Mouseclick, left
-Mousemove, 0, 72, , R
+Mousemove, 0, 69, , R
 Mouseclick, left
 WinWaitActive, Find Recall -, , 5
 If (ErrorLevel = 0){
     Send !n
-    WinWaitActive, New Recall -, ,5
-    If (ErrorLevel = 0){
-    Click, 218, 93
-    }
 }
 return
 
@@ -356,7 +352,7 @@ return
 RButton::
 MouseGetPos, xpos, ypos
 ; I'm Done
-if ( 433 < xpos AND xpos < 491 AND 272 < ypos AND ypos < 292) { ; 'Close' button, right click
+if ( 434 < xpos AND xpos < 491 AND 250 < ypos AND ypos < 270) { ; 'Close' button, right click
     Mouseclick, Left, %xpos%, %ypos%
     CitrixSleep()
     Send !{F4}
@@ -453,7 +449,7 @@ RouteToDesktop(desktopname){
         CitrixSleep()
         Send %desktopname% {enter}
         CitrixSleep()
-        Click, 239 354
+        Click, 227 325
         exit
     }
 }
