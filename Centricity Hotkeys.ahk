@@ -214,7 +214,7 @@ if ( 28 < xpos AND xpos < 515 AND 152 < ypos AND ypos < 231) { ; Routing Names a
     Send !m
 }
 ; I'm Done
-if ( 293 < xpos AND xpos < 365 AND 288 < ypos AND ypos < 309) { ; 'Route' button, right click
+if ( 375 < xpos AND xpos < 446 AND 286 < ypos AND ypos < 306) { ; 'Route' button, right click
     Mouseclick, Left, %xpos%, %ypos%
     AfterRoutetoNextFlag()
 }
@@ -279,7 +279,7 @@ if ( 30 < xpos AND xpos < 516 AND 230 < ypos AND ypos < 310) { ; Routing Names a
     Send !m
 }
 ; I'm Done
-if ( 354 < xpos AND xpos < 444 AND 499 < ypos AND ypos < 520) { ; 'Route' button, right click
+if ( 375 < xpos AND xpos < 445 AND 474 < ypos AND ypos < 494) { ; 'Route' button, right click
     Mouseclick, Left, %xpos%, %ypos%
     AfterRoutetoNextFlag()
 }
