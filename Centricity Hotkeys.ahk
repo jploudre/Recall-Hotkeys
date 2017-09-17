@@ -500,13 +500,13 @@ ChangeDocumentTitle(numberofdays){
     if (ErrorLevel = 0) {
         CitrixSleep()
         ; Focus on the Title Field
-        Mouseclick, Left, 105, 249
+        Mouseclick, Left, 550, 224
         CitrixSleep()
         today = 
         EnvAdd, today, %numberofdays%, days
         FormatTime, upcomingvisit, %today%, M-yyyy
         FormatTime, upcomingdaynumber, today, d
-        Send [%upcomingvisit%]{Space}
+        Send {Space}[%upcomingvisit%]{Space}
         CitrixSleep()
         Send {Enter}
         exit
