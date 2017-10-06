@@ -236,7 +236,7 @@ F4::
 RouteToDesktop("April")
 return
 F5::
-RouteToDesktop("May")
+RouteToDesktop("May, De")
 return
 F6::
 RouteToDesktop("June")
@@ -301,7 +301,7 @@ F4::
 RouteToDesktop("April")
 return
 F5::
-RouteToDesktop("May")
+RouteToDesktop("May, De")
 return
 F6::
 RouteToDesktop("June")
@@ -500,7 +500,7 @@ ChangeDocumentTitle(numberofdays){
     if (ErrorLevel = 0) {
         CitrixSleep()
         ; Focus on the Title Field
-        Mouseclick, Left, 550, 224
+        Mouseclick, Left, 106, 224
         CitrixSleep()
         today = 
         EnvAdd, today, %numberofdays%, days
