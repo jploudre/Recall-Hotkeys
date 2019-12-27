@@ -1,4 +1,16 @@
-; Setup
+global telemetry_log, enable_logging
+#NoEnv
+
+telemetry_folder := "\\fcnjboss01\AHK_Telemetry$\" 
+telemetry_log := telemetry_folder . A_UserName . "-Usage.csv"
+enable_logging := True
+
+ifNotExist, %telemetry_log%
+{
+LogFileHeaders := "Year,Month,Day,Hour,User,Hotkey,Function,Error"
+FileAppend, %LogFileHeaders%`n, %telemetry_log%
+}
+
 CoordMode, Mouse, Window
 #Persistent
 SetKeyDelay, 30
@@ -511,4 +523,16 @@ ChangeDocumentTitle(numberofdays){
         Send {Enter}
         exit
     }
+}
+
+
+LogUsage(Function, Error=""){
+global telemetry_log, enable_logging
+ifExist, %telemetry_log% 
+{
+    if (enable_logging = True) {
+        line_to_log := A_YYYY . "," A_MM . "," A_DD . "," A_Hour . "," A_UserName . "," A_ThisHotkey . "," Function . "," Error
+        FileAppend, %line_to_log%`n, %telemetry_log%
+    }
+}
 }
